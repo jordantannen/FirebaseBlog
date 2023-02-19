@@ -1,3 +1,7 @@
+## Firebase Blog
+A social blogging site with a Firebase backend and a React/NextJS frontend. Was there a reason to use Next? Not really.
+Honestly, just wanted to try it out.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
