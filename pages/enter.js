@@ -4,4 +4,8 @@ export default function EnterPage({ }) {
             <h1>Sign Up</h1>
         </main>
     )
+
+    function SignInButton(){
+        
+    }
 }
