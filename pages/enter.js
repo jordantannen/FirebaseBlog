@@ -9,21 +9,6 @@ export default function EnterPage(props) {
     // const user = null;
     // const username = null;
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-    
-        // Create refs for both documents
-        const userDoc = firestore.doc(`users/${user.uid}`);
-        const usernameDoc = firestore.doc(`usernames/${formValue}`);
-    
-        // Commit both docs together as a batch write.
-        const batch = firestore.batch();
-        batch.set(userDoc, { username: formValue, photoURL: user.photoURL, displayName: user.displayName });
-        batch.set(usernameDoc, { uid: user.uid });
-    
-        await batch.commit();
-      };
-
     return (
         <main>
             {/* If user signed out, show sign in button,  signed out, show signin button,
@@ -65,6 +50,21 @@ export default function EnterPage(props) {
         const [loading, setLoading] = useState(false)
 
         const {user, username} = useContext(UserContext)
+
+        const onSubmit = async (e) => {
+            e.preventDefault();
+        
+            // Create refs for both documents
+            const userDoc = firestore.doc(`users/${user.uid}`);
+            const usernameDoc = firestore.doc(`usernames/${formValue}`);
+        
+            // Commit both docs together as a batch write.
+            const batch = firestore.batch();
+            batch.set(userDoc, { username: formValue, photoURL: user.photoURL, displayName: user.displayName });
+            batch.set(usernameDoc, { uid: user.uid });
+        
+            await batch.commit();
+          };
 
         const onChange = (e) => {
             const val = e.target.value.toLowerCase();
