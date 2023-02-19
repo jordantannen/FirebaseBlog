@@ -9,6 +9,20 @@ export default function EnterPage(props) {
     // const user = null;
     // const username = null;
 
+    const onSubmit = async (e) => {
+        e.preventDefault();
+    
+        // Create refs for both documents
+        const userDoc = firestore.doc(`users/${user.uid}`);
+        const usernameDoc = firestore.doc(`usernames/${formValue}`);
+    
+        // Commit both docs together as a batch write.
+        const batch = firestore.batch();
+        batch.set(userDoc, { username: formValue, photoURL: user.photoURL, displayName: user.displayName });
+        batch.set(usernameDoc, { uid: user.uid });
+    
+        await batch.commit();
+      };
 
     return (
         <main>
@@ -88,7 +102,7 @@ export default function EnterPage(props) {
             !username && (
                 <section>
                     <h3>Select Username</h3>
-                    <form onSubmit={onSumbit}>
+                    <form onSubmit={onSubmit}>
                         <input name="username" placeholder="username" value={formValue} onChange={onChange}/>
                         <button type="summit" className="btn-green" disabled={!isValid}>
                             Submit
