@@ -1,20 +1,30 @@
 import { auth, googleAuthProvider } from "../lib/firebase"
+import { useContext } from "react"
+import { UserContext } from '../lib/context'
 
 export default function EnterPage(props) {
-    const user = null
-    const username = null
+    const { user, username } = useContext(UserContext)
+    // const user = null;
+    // const username = null;
+
 
     return (
         <main>
-            {/* If user signed out, show sign in button,  signed out, show signout button,
+            {/* If user signed out, show sign in button,  signed out, show signin button,
             signed in but no user name, requests the username form */}
-            {user ? !username ? <UsernameForm/> : <SignOutButton/> : <SignInButton/> }
+            {user ? 
+                !username ? <UsernameForm /> : <SignOutButton /> 
+                : 
+                <SignInButton />
+            }
+            <h1>Enter</h1>
         </main>
     )
 
     function SignInButton() {
         const signInWithGoogle = async () => {
             await auth.signInWithPopup(googleAuthProvider)
+            console.log("Sign in...")
         }
 
         return (
@@ -25,10 +35,17 @@ export default function EnterPage(props) {
     }
 
     function SignOutButton() {
-        return <button onClick={() => auth.signOut()}>Sign Out</button>
+        return (
+            <h1>test</h1>,
+            <button onClick={() => auth.signOut()}>
+                Sign Out
+            </button>
+            )
     }
 
     function UsernameForm() {
-        return null;
+        return (
+            <h1>form</h1>
+        );
     }
 }
